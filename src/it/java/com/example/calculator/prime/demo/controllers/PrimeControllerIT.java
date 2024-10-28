@@ -259,7 +259,7 @@ public class PrimeControllerIT {
     }
 
     @Test
-    void testFindPrimes_WithInvalidMaxValue() {
+    void testFindPrimes_WithInvalidSmallMaxValue() {
         int maxValue = -1;
         given()
                 .param("maxValue", maxValue)
@@ -269,6 +269,18 @@ public class PrimeControllerIT {
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("message", equalTo("findPrimes.maxValue: must be greater than or equal to 0"));
+    }
+
+    @Test
+    void testFindPrimes_WithInvalidLargeMaxValue() {
+        given()
+                .param("maxValue", "9999999999999999999999999")
+                .when()
+                .get("/primes")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body("message", containsString("Method parameter 'maxValue': Failed to convert value of type 'java.lang.String' to required type 'int'"));
     }
 
     @Test
@@ -297,6 +309,19 @@ public class PrimeControllerIT {
                 .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body("message", equalTo("No acceptable representation"));
+    }
+
+    @Test
+    void testFindPrimes_WithIncorrectPath() {
+        int maxValue = 11;
+        given()
+                .param("maxValue", maxValue)
+                .when()
+                .get("/primos")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body("message", containsString("No static resource"));
     }
 
 }

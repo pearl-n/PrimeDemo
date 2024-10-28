@@ -15,16 +15,12 @@ public class PrimeServiceImpl implements PrimeService {
     @Override
     @Cacheable("primes")
     public PrimesDTO calculatePrimeNumbersUpTo(int maxValue, Algorithm algo) {
-        long startTime = System.currentTimeMillis();
         List<Integer> primes = switch (algo) {
             case ERATOSTHENES -> PrimeUtils.eratosthenes(maxValue);
             case SUNDARAM -> PrimeUtils.sundaram(maxValue);
             case ATKIN -> PrimeUtils.atkin(maxValue);
-            default -> PrimeUtils.basic(maxValue);
         };
-        long endTime = System.currentTimeMillis();
-        long duration = (endTime - startTime);
-        return new PrimesDTO(duration, primes);
+        return new PrimesDTO(algo.getName(), primes);
     }
 
 }

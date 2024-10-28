@@ -6,7 +6,6 @@ import com.example.calculator.prime.demo.dto.ErrorDTO;
 import com.example.calculator.prime.demo.services.PrimeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/primes")
+@RequestMapping("/")
 @Validated
 @Tag(name = "Primes", description = "Endpoints related to prime numbers")
 public class PrimeController {
@@ -36,22 +35,22 @@ public class PrimeController {
     @Operation(summary = "Find prime numbers", description = "Calculates and returns all the prime numbers up to and including the number provided")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Prime numbers successfully returned", content = {
-                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(type = "integer"))),
-                    @Content(mediaType = MediaType.APPLICATION_XML_VALUE, array = @ArraySchema(schema = @Schema(type = "integer"))),
-                    @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, array = @ArraySchema(schema = @Schema(type = "string")))}),
-            @ApiResponse(responseCode = "400", description = "Invalid request",
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
-            @ApiResponse(responseCode = "406", description = "No acceptable representation",
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
-            @ApiResponse(responseCode = "500", description = "Something unexpected occurred",
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class)))
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PrimesDTO.class)),
+                    @Content(mediaType = MediaType.APPLICATION_XML_VALUE, schema = @Schema(implementation = PrimesDTO.class)),
+                    @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(implementation = PrimesDTO.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content =
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "406", description = "No acceptable representation", content =
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "500", description = "Something unexpected occurred", content =
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class)))
     })
-    @GetMapping(value = "/prime-numbers", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE})
+    @GetMapping(value = "/primes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<?> findPrimes(
             @Parameter(description = "The maximum value of the prime numbers to be returned", example = "100")
             @RequestParam(value = "maxValue") @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
             @Parameter(description = "The algorithm to be used")
-            @RequestParam(value = "algorithm", required = false, defaultValue = "BASIC") Algorithm algo) {
+            @RequestParam(value = "algorithm", required = false, defaultValue = "ERATOSTHENES") Algorithm algo) {
         PrimesDTO primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
         return ResponseEntity.ok(primes);
     }

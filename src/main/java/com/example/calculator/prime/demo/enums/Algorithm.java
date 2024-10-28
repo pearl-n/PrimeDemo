@@ -1,7 +1,7 @@
 package com.example.calculator.prime.demo.enums;
 
 public enum Algorithm {
-    BASIC("Basic"),
+
     ERATOSTHENES("Sieve of Eratosthenes"),
     SUNDARAM("Sieve of Sundaram"),
     ATKIN("Sieve of Atkin");
@@ -10,6 +10,10 @@ public enum Algorithm {
 
     Algorithm(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

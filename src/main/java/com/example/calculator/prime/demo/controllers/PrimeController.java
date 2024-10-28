@@ -1,9 +1,11 @@
 package com.example.calculator.prime.demo.controllers;
 
-import com.example.calculator.prime.demo.dto.PrimesDTO;
+import com.example.calculator.prime.demo.response.PrimesResponse;
 import com.example.calculator.prime.demo.enums.Algorithm;
-import com.example.calculator.prime.demo.dto.ErrorDTO;
+import com.example.calculator.prime.demo.response.ErrorResponse;
 import com.example.calculator.prime.demo.services.PrimeService;
+import com.example.calculator.prime.demo.utility.FormatUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,24 +37,45 @@ public class PrimeController {
     @Operation(summary = "Find prime numbers", description = "Calculates and returns all the prime numbers up to and including the number provided")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Prime numbers successfully returned", content = {
-                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PrimesDTO.class)),
-                    @Content(mediaType = MediaType.APPLICATION_XML_VALUE, schema = @Schema(implementation = PrimesDTO.class)),
-                    @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(implementation = PrimesDTO.class))}),
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PrimesResponse.class)),
+                    @Content(mediaType = MediaType.APPLICATION_XML_VALUE, schema = @Schema(implementation = PrimesResponse.class)),
+                    @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(implementation = PrimesResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request", content =
-                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "406", description = "No acceptable representation", content =
-                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class))),
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "Something unexpected occurred", content =
-                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorDTO.class)))
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @GetMapping(value = "/primes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE})
+    @GetMapping(value = "/primes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> findPrimes(
             @Parameter(description = "The maximum value of the prime numbers to be returned", example = "100")
             @RequestParam(value = "maxValue") @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
             @Parameter(description = "The algorithm to be used")
             @RequestParam(value = "algorithm", required = false, defaultValue = "ERATOSTHENES") Algorithm algo) {
-        PrimesDTO primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
         return ResponseEntity.ok(primes);
+    }
+
+    @Operation(summary = "Find prime numbers", description = "Calculates and returns all the prime numbers up to and including the number provided")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prime numbers successfully returned", content = {
+                    @Content(mediaType = MediaType.TEXT_PLAIN_VALUE, schema = @Schema(implementation = PrimesResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content =
+            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "406", description = "No acceptable representation", content =
+            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Something unexpected occurred", content =
+            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @GetMapping(value = "/primes", produces = {MediaType.TEXT_PLAIN_VALUE})
+    public ResponseEntity<?> findPrimesText(
+            @Parameter(description = "The maximum value of the prime numbers to be returned", example = "100")
+            @RequestParam(value = "maxValue") @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
+            @Parameter(description = "The algorithm to be used")
+            @RequestParam(value = "algorithm", required = false, defaultValue = "ERATOSTHENES") Algorithm algo) throws JsonProcessingException {
+        PrimesResponse primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(FormatUtils.convertObjectToPrettyJsonString(primes));
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.calculator.prime.demo.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Algorithm {
 
     ERATOSTHENES("Sieve of Eratosthenes"),
@@ -10,10 +13,6 @@ public enum Algorithm {
 
     Algorithm(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
 }

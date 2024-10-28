@@ -1,6 +1,6 @@
 package com.example.calculator.prime.demo.services;
 
-import com.example.calculator.prime.demo.dto.PrimesDTO;
+import com.example.calculator.prime.demo.response.PrimesResponse;
 import com.example.calculator.prime.demo.enums.Algorithm;
 import com.example.calculator.prime.demo.services.impl.PrimeServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -25,10 +25,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ERATOSTHENES;
         List<Integer> expectedPrimes = List.of();
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -37,10 +37,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ERATOSTHENES;
         List<Integer> expectedPrimes = List.of(2);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -49,10 +49,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ERATOSTHENES;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -61,10 +61,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ERATOSTHENES;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7, 11);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -76,10 +76,10 @@ public class PrimeServiceTests {
                 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
         );
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -88,10 +88,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.SUNDARAM;
         List<Integer> expectedPrimes = List.of();
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -100,10 +100,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.SUNDARAM;
         List<Integer> expectedPrimes = List.of(2);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -112,10 +112,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.SUNDARAM;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -124,10 +124,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.SUNDARAM;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7, 11);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -139,10 +139,10 @@ public class PrimeServiceTests {
                 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
         );
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -151,10 +151,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ATKIN;
         List<Integer> expectedPrimes = List.of();
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -163,10 +163,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ATKIN;
         List<Integer> expectedPrimes = List.of(2);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -175,10 +175,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ATKIN;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -187,10 +187,10 @@ public class PrimeServiceTests {
         Algorithm algo = Algorithm.ATKIN;
         List<Integer> expectedPrimes = List.of(2, 3, 5, 7, 11);
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
     @Test
@@ -202,10 +202,10 @@ public class PrimeServiceTests {
                 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
         );
 
-        PrimesDTO result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
+        PrimesResponse result = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
 
-        assertEquals(algo.getName(), result.algorithm());
-        assertEquals(expectedPrimes, result.primes());
+        assertEquals(algo.getName(), result.getAlgorithm());
+        assertEquals(expectedPrimes, result.getPrimes());
     }
 
 }

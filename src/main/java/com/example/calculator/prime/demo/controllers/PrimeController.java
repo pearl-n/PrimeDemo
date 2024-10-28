@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class PrimeController {
     @GetMapping(value = "/primes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> findPrimes(
             @Parameter(description = "The maximum value of the prime numbers to be returned", example = "100")
-            @RequestParam(value = "maxValue") @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
+            @RequestParam(value = "maxValue") @Valid @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
             @Parameter(description = "The algorithm to be used")
             @RequestParam(value = "algorithm", required = false, defaultValue = "ERATOSTHENES") Algorithm algo) {
         PrimesResponse primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);
@@ -71,7 +72,7 @@ public class PrimeController {
     @GetMapping(value = "/primes", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<?> findPrimesText(
             @Parameter(description = "The maximum value of the prime numbers to be returned", example = "100")
-            @RequestParam(value = "maxValue") @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
+            @RequestParam(value = "maxValue") @Valid @Min(0) @Max(Integer.MAX_VALUE) int maxValue,
             @Parameter(description = "The algorithm to be used")
             @RequestParam(value = "algorithm", required = false, defaultValue = "ERATOSTHENES") Algorithm algo) throws JsonProcessingException {
         PrimesResponse primes = primeService.calculatePrimeNumbersUpTo(maxValue, algo);

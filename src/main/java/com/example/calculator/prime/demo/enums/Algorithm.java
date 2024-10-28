@@ -1,7 +1,10 @@
 package com.example.calculator.prime.demo.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Algorithm {
-    BASIC("Basic"),
+
     ERATOSTHENES("Sieve of Eratosthenes"),
     SUNDARAM("Sieve of Sundaram"),
     ATKIN("Sieve of Atkin");

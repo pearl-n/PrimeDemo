@@ -29,7 +29,7 @@ The application will start on http://localhost:8080 by default.
 
 You will be able to access the Swagger UI at:
 
-http://localhost:8080/api/v1/prime-demo/swagger-ui/index.html
+    ~/api/v1/prime-demo/swagger-ui/index.html
 
 ## Usage
 
@@ -72,7 +72,7 @@ curl -X 'GET' \
 
 ## Testing
 
-To run the unit tests, use the following command:
+To run the tests, use the following command:
 ```bash
 mvn test
 ```

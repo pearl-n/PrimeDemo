@@ -1,7 +1,7 @@
 # PrimeDemo Microservice
 
 ## Overview
-This microservice provides a REST API which calculates and returns all prime numbers up to and including a given number.
+This microservice is built in Spring Boot using Maven. It provides a REST API which calculates and returns all prime numbers up to and including a given number.
 
 ## Requirements
 

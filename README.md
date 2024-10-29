@@ -27,7 +27,9 @@ This microservice is built in Spring Boot using Maven. It provides a REST API wh
 
 The application will start on http://localhost:8080 by default.
 
-You will be able to access the Swagger UI at http://localhost:8080/api/v1/prime-demo/swagger-ui/index.html.
+You will be able to access the Swagger UI at:
+
+http://localhost:8080/api/v1/prime-demo/swagger-ui/index.html
 
 ## Usage
 
@@ -42,14 +44,14 @@ To calculate all prime numbers up to and including a given number, use the follo
 | Parameter | Type        | Description                                                            | Example      | Required | Default Value   |
 |-----------|-------------|------------------------------------------------------------------------|--------------|----------|------------------|
 | `maxValue` | Query param | The maximum value of the prime numbers to be returned                 | 11           | ✔️      | N/A              |
-| `algorithm` | Query param | The algorithm to be used                                              | ERATOSTHENES | ❌       | ERATOSTHENES     |
+| `algorithm` | Query param | The algorithm to be used                                              | ATKIN | ❌       | ERATOSTHENES     |
 
 ### Example Request
 
 To get all prime numbers up to 11:
 ```bash
 curl -X 'GET' \
-  'http://localhost:8080/api/v1/prime-demo/primes?maxValue=11&algorithm=ERATOSTHENES' \
+  'http://localhost:8080/api/v1/prime-demo/primes?maxValue=11&algorithm=ATKIN' \
   -H 'accept: application/json'
 ```
 
@@ -57,7 +59,7 @@ curl -X 'GET' \
 
 ```json
 {
-  "algorithm": "Sieve of Eratosthenes",
+  "algorithm": "Sieve of Atkin",
   "primes": [
     2,
     3,
